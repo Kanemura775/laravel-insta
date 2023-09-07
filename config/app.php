@@ -16,6 +16,9 @@ return [
     |
     */
 
+    //env (1 param, 2 param)
+    //envファイルに書かれているAPP_NAMEがLaravelって名付けている
+    //envファイルを作成している。　
     'name' => env('APP_NAME', 'Laravel'),
 
     /*

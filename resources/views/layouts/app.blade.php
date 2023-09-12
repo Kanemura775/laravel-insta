@@ -52,24 +52,46 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
-                        @else
+                            @else
                             {{-- Home --}}
                                 <li class="nav-item" title="Home">
                                     <a href="{{route('index')}}" class="nav-link">
                                         <i class="fa-solid fa-house text-dark icon-sm"></i>
                                     </a>
                                 </li>
-                                
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                {{-- Create Post --}}
+                                <li class="nav-item" title="Create Post">
+                                    <a href="{{route('post.create')}}" class="nav-link">
+                                        <i class="fa-solid fa-circle-plus text-dark icon-sm"></i>
+                                    </a>
+                                </li>
+
+                            <li class="nav-item dropdown">
+                                {{-- <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a> --}}
+                                <button id="account-dropdown" class="btn shadow-none nav-link" data-bs-toggle="dropdown">
+                                    @if(Auth::user()->avatar)
+                                        <img src="#" alt="{{Auth::user()->avatar}}" class="rounded-circle avatar-sm">
+                                    @else
+                                    <i class="fa-solid fa-circle-user text-dark icon-sm"></i>
+                                    @endif
+                                </button>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
+                                    {{-- [SOON] admin controls --}}
+
+                                    {{-- Profile --}}
+                                    <a href="#" class="dropdown-item">
+                                        <i class="fa-solid fa-circle-user"></i> Profile
+                                    </a>
+
+                                    {{-- Logout --}}
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <i class="fa-solid fa-right-from-bracket"> </i>{{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -84,7 +106,15 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            {{-- @yield('content') --}}
+            <div class="container">
+                <div class="row justify-content-center">
+                    {{-- [SOON] Admin Controls --}}
+                    <div class="col-9">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 </body>

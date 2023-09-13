@@ -24,7 +24,7 @@
                 {{-- if user is authenticated display EDIT/DELETE menu. Else, display follow/unfollow --}}
                 @if(Auth::user()->id === $post->user->id)
                     <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">
+                        <a href="{{route('post.edit',$post->id)}}" class="dropdown-item">
                             <i class="fa-regular fa-pen-to-square"></i>Edit
                         </a>
                         <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#delete-post-{{$post->id}}">

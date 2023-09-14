@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
-
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/post/{id}/update', [postController::class, 'update'])->name('post.update');
     //this route will delete a post
     Route::delete('/post/{id}/destroy', [postController::class, 'destroy'])->name('post.destroy');
+
+    //this route will store a comment
+    Route::post('/comment/{post_id}/store', [CommentController::class, 'store'])->name('comment.store');
+    //this route will delete a comment
+    Route::delete('/comment/{id}/destroy', [CommentController::class, 'destroy'])->name('comment.destroy');
 });

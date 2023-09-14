@@ -15,3 +15,12 @@
 .xsmall {
     font-size: 0.65rem;
 }
+
+.comment-col {
+    overflow-y: scroll;
+}
+
+.comment-body {
+    position: absolute;
+    top: 65px;
+}

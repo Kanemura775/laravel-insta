@@ -9,7 +9,7 @@
             <img src="{{$post->image}}" alt="post id {{$post->id}}" class="w-100">
         </div>
         {{-- RIGHT --}}
-        <div class="col-4 px-0 bg-white">
+        <div class="col-4 px-0 bg-white comment-col">
             <div class="card border-0">
                 {{-- header --}}
                 <div class="card-header bg-white py-3">
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 {{-- body --}}
-                <div class="card-body w-100">
+                <div class="card-body w-100 bg-white comment-body">
                      {{-- heart button + number of likes + categories --}}
                         <div class="row align-item-center">
                             <div class="col-auto">
@@ -92,6 +92,52 @@
                         <p class="text-uppercase text-muted xsmall">{{$post->created_at->diffForHumans()}}</p>
 
                         {{-- Include comments here --}}
+                        <form action="{{route('comment.store',$post->id)}}" method="POST">
+                            @csrf
+                            {{-- comment body2 --}}
+                            <div class="input-group">
+                                <textarea name="comment_body{{$post->id}}" rows="1" class="form-control form-control-sm" placeholder="Add a comment...">{{old('comment_body' . $post->id)}}</textarea>
+                                <button type="submit" class="btn btn-outline-secondary btn-sm   ">Post</button>
+                            </div>
+                            {{-- error --}}
+                            @error('comment_body'.$post->id)
+                                <div class="text-danger small">{{$message}}</div>
+                            @enderror
+                        </form>
+                        {{-- show all comment here --}}
+                        {{--
+                            option1: @if($post->comments->isNotEmpty())
+                                        @foreach($post->comments as $comment)
+                                        @endforeach
+                                    @endif
+                            option2: @forelse($post->comments as $comment)
+                                     @empty
+                                     @endforelse
+                        --}}
+                        @if($post->comments->isNotEmpty())
+                            <ul class="list-group mt-2">
+                                @foreach($post->comments as $comment)
+                                    <li class="list-group-item border-0 p-0 mb-2 bg-white">
+                                        <a href="#" class="text-decoration-none text-dark fw-bold">
+                                            {{$comment->user->name}}
+                                        </a>
+                                        &nbsp;
+                                        <p class="d-inline fw-light">{{$comment->body}}</p>
+                                        <form action="{{route('comment.destroy',$comment->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <span class="text-uppercase text-muted xsmall">{{$comment->created_at->diffForHumans()}}</span>
+                                            {{-- show delete button if the login user owns the comment --}}
+                                            @if(Auth::user()->id === $comment->user->id)
+                                                &middot;
+                                                <button type="submit" class="border-0 bg-transparent text-danger p-0 xsmall">Delete</button>
+                                            @endif
+                                        </form>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+
                 </div>
             </div>
         </div>

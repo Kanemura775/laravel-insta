@@ -21,8 +21,9 @@ class Post extends Model
         return $this->hasMany(CategoryPost::class);
     }
 
+    //to get the comments of a specific post
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->latest();
     }
 }

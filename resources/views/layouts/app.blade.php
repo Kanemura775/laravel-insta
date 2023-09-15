@@ -73,7 +73,7 @@
                                 </a> --}}
                                 <button id="account-dropdown" class="btn shadow-none nav-link" data-bs-toggle="dropdown">
                                     @if(Auth::user()->avatar)
-                                        <img src="#" alt="{{Auth::user()->avatar}}" class="rounded-circle avatar-sm">
+                                        <img src="{{Auth::user()->avatar}}" alt="{{Auth::user()->avatar}}" class="rounded-circle avatar-sm">
                                     @else
                                     <i class="fa-solid fa-circle-user text-dark icon-sm"></i>
                                     @endif
@@ -83,7 +83,7 @@
                                     {{-- [SOON] admin controls --}}
 
                                     {{-- Profile --}}
-                                    <a href="#" class="dropdown-item">
+                                    <a href="{{route('profile.show',Auth::user()->id)}}" class="dropdown-item">
                                         <i class="fa-solid fa-circle-user"></i> Profile
                                     </a>
 

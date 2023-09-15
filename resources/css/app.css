@@ -24,3 +24,23 @@
     position: absolute;
     top: 65px;
 }
+
+.icon-lg {
+    font-size: 9rem;
+}
+
+.grid-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.show-post-layout {
+    margin-top: 100px;
+}
+
+.avatar-sm {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+}

@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,4 +47,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/comment/{post_id}/store', [CommentController::class, 'store'])->name('comment.store');
     //this route will delete a comment
     Route::delete('/comment/{id}/destroy', [CommentController::class, 'destroy'])->name('comment.destroy');
+
+    //this route will serve the views>users>profile>show.blade.php
+    Route::get('/profile/{id}/show', [ProfileController::class, 'show'])->name('profile.show');
+    //this route will serve the views>users>profile>edit.blade.php
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    //this route will update a user information
+    Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });

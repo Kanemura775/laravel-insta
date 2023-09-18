@@ -4,6 +4,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LikeController;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +28,42 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+/**
+ * HTTP REQUEST METHOD
+ * to display a view file - use get()
+ * if the request is from a form - use post(),patch(), and delete
+ *
+ * post()
+ * FORM structure
+ * <form action="#" method="POST">
+ *          @csrf
+ *          <button type="submit" class="btn btn-sm shadow-none p-0">
+ *              <i class="fa-regular fa-heart"></i>
+ *          </button>
+ * </form>
+ *
+ * patch()
+ * FORM structure
+ * <form action="#" method="POST">
+ *          @csrf
+ *          @method('PATCH')
+ *          <button type="submit" class="btn btn-sm shadow-none p-0">
+ *              <i class="fa-regular fa-heart"></i>
+ *          </button>
+ * </form>
+ *
+ * delete()
+ * FORM structure
+ * <form action="#" method="POST">
+ *          @csrf
+ *          @method('DELETE')
+ *          <button type="submit" class="btn btn-sm shadow-none p-0">
+ *              <i class="fa-regular fa-heart"></i>
+ *          </button>
+ * </form>
+ */
 
 //this is route group for all the route accessable only by login user/authenticated users
 Route::group(['middleware' => 'auth'], function () {
@@ -54,4 +92,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     //this route will update a user information
     Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+    //this route will store a like
+    Route::post('/like/{post_id}/store', [LikeController::class, 'store'])->name('like.store');
+    //this route will delete a like
+    Route::delete('/like/{post_id}/destroy', [LikeController::class, 'destroy'])->name('like.destroy');
 });

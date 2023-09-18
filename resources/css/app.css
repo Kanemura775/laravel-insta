@@ -44,3 +44,13 @@
     height: 2rem;
     object-fit: cover;
 }
+
+.avatar-md {
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: cover;
+}
+
+.icon-md {
+    font-size: 3.5rem;
+}

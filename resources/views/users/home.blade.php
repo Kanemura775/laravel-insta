@@ -43,9 +43,21 @@
     </div>
 
     {{-- RIGHT --}}
-    <div class="col-4 bg-secondary">
+    <div class="col-4">
         {{-- Profile Overview --}}
-        PROFILE OVERVIEW
+        <div class="row align-items-center mb-5 bg-white shadow-sm rounded-3 py-3">
+            <div class="col-auto">
+                <a href="{{route('profile.show',Auth::user()->id)}}">
+                    @if(Auth::user()->avatar)
+                        <img src="{{Auth::user()->avatar}}" alt="{{Auth::user()->name}}" class="rounded-circle avatar-md">
+                    @else
+                        <i class="fa-solid fa-circle-user text-secondary icon-md"></i>
+                    @endif
+                </a>
+            </div>
+
+
+        </div>
 
         {{-- Suggestions --}}
         SUGGESTIONS

@@ -7,6 +7,12 @@
             <li class="list-group-item border-0 p-0 mb-2">
                 <a href="{{route('profile.show',$comment->user->id)}}" class="text-decoration-none text-dark fw-bold">
                     {{$comment->user->name}}
+                    {{--
+                        REFERENCE: {{$comment->user->name}}
+                        $comment - instance of a comment from comments table
+                        ->user - is the relationship inside comment.php model which is user() that calls the specific user
+                        ->name - is the name of user inside the users table in database.
+                        --}}
                 </a>
                 &nbsp;
                 <p class="d-inline fw-light">{{$comment->body}}</p>

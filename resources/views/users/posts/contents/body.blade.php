@@ -9,16 +9,26 @@
     {{-- heart button + number of likes + categories --}}
     <div class="row align-item-center">
         <div class="col-auto">
-            <form action="#" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-sm shadow-none p-0">
-                    <i class="fa-regular fa-heart"></i>
-                </button>
-            </form>
+            @if($post->isLiked())
+                <form action="{{route('like.destroy',$post->id)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm shadow-none p-0">
+                        <i class="fa-solid fa-heart text-danger"></i>
+                    </button>
+                </form>
+            @else
+                <form action="{{route('like.store',$post->id)}}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-sm shadow-none p-0">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </form>
+        @endif
         </div>
         {{-- count --}}
         <div class="col-auto px-0">
-            <span>3</span>
+            <span>{{$post->likes->count()}}</span>
         </div>
         {{-- category badges --}}
         <div class="col text-end">

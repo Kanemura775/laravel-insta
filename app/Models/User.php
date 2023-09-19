@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -57,5 +58,39 @@ class User extends Authenticatable
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    //to get all the followers of a user
+    public function followers()
+    {
+        return $this->hasMany(Follow::class, 'following_id');
+    }
+
+    //to get all the users that the reference user is following
+    public function following()
+    {
+        return $this->hasMany(Follow::class, 'follower_id');
+    }
+
+    //this is to check if the user is being followed by the current user
+    public function isFollowed()
+    {
+        return $this->followers()->where('follower_id', Auth::user()->id)->exists();
+        /**
+         * ======example 1========
+         * login user id = 1
+         * reference id is = 3
+         *
+         * FOLLOWS TABLE
+         * follower_id      Following_id
+         * 1                3
+         * 3                1
+         * 2                1
+         * 3                2
+         *
+         * $this->followers() = [1,3]
+         * ->where('follower_id', Auth::user()->id) = [[1.3]]
+         * ->exists(); = TRUE
+         */
     }
 }

@@ -35,7 +35,7 @@
                     @include('users.posts.contents.modals.delete')
                 @else
                     <div class="dropdown-menu">
-                        <form action="#" method="POST">
+                        <form action="{{route('follow.destroy',$post->user->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="dropdown-item text-danger">Unfollow</button>

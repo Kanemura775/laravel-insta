@@ -17,12 +17,23 @@
                 @if(Auth::user()->id === $user->id)
                     <a href="{{route('profile.edit')}}" class="btn btn-outline-secondary btn-sm fw-bold">Edit Profile</a>
                 @else
-                    <form action="#" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-primary btn-sm fw-bold">
-                            Follow
-                        </button>
-                    </form>
+                  {{-- <p>{{$user->isfollowed()}}</p> --}}
+                    @if($user->isFollowed())
+                        <form action="{{route('follow.destroy',$user->id)}}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-outline-secondary btn-sm fw-bold">
+                                Following
+                            </button>
+                        </form>
+                    @else
+                        <form action="{{route('follow.store',$user->id)}}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-primary btn-sm fw-bold">
+                                Follow
+                            </button>
+                        </form>
+                    @endif
                 @endif
             </div>
         </div>

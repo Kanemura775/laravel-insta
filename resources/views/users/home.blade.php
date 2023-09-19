@@ -55,7 +55,12 @@
                     @endif
                 </a>
             </div>
-
+            <div class="col ps-0">
+                <a href="{{route('profile.show', Auth::user()->id)}}" class="text-decoration-none text-dark fw-bold">
+                    {{Auth::user()->name}}
+                </a>
+                <p class="text-muted mb-0">{{Auth::user()->email}}</p>
+            </div>
 
         </div>
 

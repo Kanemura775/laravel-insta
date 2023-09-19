@@ -49,11 +49,27 @@
                                     @include('users.posts.contents.modals.delete')
                                 @else
                                     <div class="dropdown-menu">
-                                        <form action="#" method="POST">
+                                        {{-- <form action="#" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="dropdown-item text-danger">Unfollow</button>
+                                        </form> --}}
+                                        @if($post->user->isFollowed())
+                                        <form action="{{route('follow.destroy',$post->user->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-primary dropdown-item">
+                                                Following
+                                            </button>
                                         </form>
+                                        @else
+                                        <form action="{{route('follow.store',$post->user->id)}}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="text-secondary dropdown-item">
+                                                    Follow
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
                                 @endif
                             </div>

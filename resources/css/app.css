@@ -54,3 +54,9 @@
 .icon-md {
     font-size: 3.5rem;
 }
+
+.avatar-lg {
+    width: 9rem;
+    height: 9rem;
+    object-fit: cover;
+}

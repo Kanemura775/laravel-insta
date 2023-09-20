@@ -61,11 +61,34 @@
                 </a>
                 <p class="text-muted mb-0">{{Auth::user()->email}}</p>
             </div>
-
         </div>
 
         {{-- Suggestions --}}
-        SUGGESTIONS
+        @if($suggested_users)
+            <div class="row">
+                <div class="col-auto">
+                    <p class="fw-bold text-secondary">Suggestions For You</p>
+                </div>
+                <div class="col text-end">
+                    <a href="#" class="fw-bold text-dark text-decoration-none">See all</a>
+                </div>
+            </div>
+            @foreach($suggested_users as $user)
+                <div class="row align-items-center mb-3">
+                    <div class="col-auto">
+                        <a href="{{route('profile.show',$user->id)}}">
+                            @if($user->avatar)
+                                <img src="{{$user->avatar}}" alt="{{$user->name}}" class="rounded-circle avatar-sm">
+                            @else
+                                <i class="fa-solid fa-circle-user text-secondary icon-sm"></i>
+                            @endif
+                        </a>
+                    </div>
+                    <div class="col ps-0 text-truncate"></div>
+                    <div class="col-auto"></div>
+                </div>
+            @endforeach
+        @endif
     </div>
 </div>
 

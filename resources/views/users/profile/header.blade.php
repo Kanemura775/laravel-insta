@@ -39,18 +39,18 @@
         </div>
         <div class="row mb-3">
             <div class="col-auto">
-                <a href="#" class="text-decoration-none text-dark">
+                <a href="{{route('profile.show', $user->id)}}" class="text-decoration-none text-dark">
                     <strong>{{$user->posts->count()}}</strong> posts
                 </a>
             </div>
             <div class="col-auto">
-                <a href="#" class="text-decoration-none text-dark">
-                    <strong>0</strong> followers
+                <a href="{{route('profile.followers',$user->id)}}" class="text-decoration-none text-dark">
+                    <strong>{{$user->followers->count()}}</strong> followers
                 </a>
             </div>
             <div class="col-auto">
-                <a href="#" class="text-decoration-none text-dark">
-                    <strong>0</strong> following
+                <a href="{{route('profile.following',$user->id)}}" class="text-decoration-none text-dark">
+                    <strong>{{$user->following->count()}}</strong> following
                 </a>
             </div>
         </div>

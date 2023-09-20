@@ -93,6 +93,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     //this route will update a user information
     Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    //this route will serve the views>user>profile>followers.blade.php
+    Route::get('/profile/{id}/followers', [ProfileController::class, 'followers'])->name('profile.followers');
+    //this route will serve the views>profile>following.blade.php
+    Route::get('/profile/{id}/following', [ProfileController::class, 'following'])->name('profile.following');
 
     //this route will store a like
     Route::post('/like/{post_id}/store', [LikeController::class, 'store'])->name('like.store');

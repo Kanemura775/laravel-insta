@@ -56,7 +56,7 @@ class HomeController extends Controller
          * RESULT = !FALSE = TRUE
          * $suggested_users = [3];
          */
-        return $suggested_users;
+        return array_slice($suggested_users, 0, 10);
     }
 
 

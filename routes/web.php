@@ -6,6 +6,8 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\Admin\UsersController;
+
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -107,4 +109,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/follow/{user_id}/store', [FollowController::class, 'store'])->name('follow.store');
     //this route will delete follow
     Route::delete('/follow/{user_id}/destroy', [FollowController::class, 'destroy'])->name('follow.destroy');
+
+    Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+        //Users
+        //URI : '/admin/users , ROUTE name: admin.users
+        Route::get('/users', [UsersController::class, 'index'])->name('users');
+    });
 });

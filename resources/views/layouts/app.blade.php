@@ -80,8 +80,11 @@
                                 </button>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
-                                    {{-- [SOON] admin controls --}}
-
+                                    {{-- admin controls --}}
+                                    <a href="{{route('admin.users')}}" class="dropdown-item">
+                                        <i class="fa-solid fa-user-gear"></i> Admin
+                                    </a>
+                                    <hr class="dropdown-divider">
                                     {{-- Profile --}}
                                     <a href="{{route('profile.show',Auth::user()->id)}}" class="dropdown-item">
                                         <i class="fa-solid fa-circle-user"></i> Profile
@@ -109,7 +112,23 @@
             {{-- @yield('content') --}}
             <div class="container">
                 <div class="row justify-content-center">
-                    {{-- [SOON] Admin Controls --}}
+                    {{-- Admin Controls --}}
+                    @if(request()->is('admin/*'))
+                        <div class="col-3">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item  {{request()->is('admin/users') ? 'active' : '' }}">
+                                    <i class="fa-solid fa-users"></i> Users
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <i class="fa-solid fa-newspaper"></i> Posts
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <i class="fa-solid fa-tags"></i> Categories
+                                </a>
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="col-9">
                         @yield('content')
                     </div>

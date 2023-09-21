@@ -84,8 +84,15 @@
                             @endif
                         </a>
                     </div>
-                    <div class="col ps-0 text-truncate"></div>
-                    <div class="col-auto"></div>
+                    <div class="col ps-0 text-truncate">
+                        <a href="{{route('profile.show',$user->id)}}" class="text-decoration-none text-dark fw^bold">{{$user->name}}</a>
+                    </div>
+                    <div class="col-auto">
+                        <form action="{{route('follow.store',$user->id)}}" method="POST">
+                            @csrf
+                            <button type="submit" class="border-0 bg-transparent p-0 text-primary btn-sm">Follow</button>
+                        </form>
+                    </div>
                 </div>
             @endforeach
         @endif

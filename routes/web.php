@@ -7,7 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\Admin\UsersController;
-
+use App\Http\Controllers\Admin\PostsController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -114,5 +114,11 @@ Route::group(['middleware' => 'auth'], function () {
         //Users
         //URI : '/admin/users , ROUTE name: admin.users
         Route::get('/users', [UsersController::class, 'index'])->name('users');
+        Route::delete('/users/{id}/deactivate', [UsersController::class, 'deactivate'])->name('users.deactivate');
+        Route::patch('/users/{id}/activate', [UsersController::class, 'activate'])->name('users.activate');
+
+        //Posts
+        Route::get('/posts', [PostsController::class, 'index'])->name('posts');
+
     });
 });

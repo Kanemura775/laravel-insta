@@ -14,12 +14,12 @@ class Follow extends Model
     //To get the details of the user being followed
     public function following()
     {
-        return $this->belongsTo(User::class, 'following_id');
+        return $this->belongsTo(User::class, 'following_id')->withTrashed();
     }
 
     //To get the details of the follower
     public function follower()
     {
-        return $this->belongsTo(User::class, 'follower_id');
+        return $this->belongsTo(User::class, 'follower_id')->withTrashed();
     }
 }

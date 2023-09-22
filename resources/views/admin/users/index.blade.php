@@ -32,7 +32,13 @@
                     <td>{{$user->email}}</td>
                     <td>{{$user->created_at}}</td>
                     <td>
+                        {{-- <i class="fa-solid fa-circle text-success"></i> &nbsp; Active --}}
+                        @if($user->trashed())
+                            <i class="fa-solid fa-circle text-secondary"></i> &nbsp; Inactive
+                        @else
                         <i class="fa-solid fa-circle text-success"></i> &nbsp; Active
+
+                        @endif
                     </td>
                     <td>
                         @if(Auth::user()->id !== $user->id)
@@ -41,16 +47,26 @@
                                     <i class="fa-solid fa-ellipsis"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <button class="dropdown-item text-danger" data-bs-target = "#deactivate-user-{{$user->id}}">
-                                        <i class="fa-solid fa-user-slash"></i> Deactivate {{$user->name}}
-                                    </button>
+                                    @if($user->trashed())
+                                        <button class="dropdown-item text-success" data-bs-toggle="modal"  data-bs-target="#activate-user-{{$user->id}}">
+                                            <i class="fa-solid fa-user-check"></i> Activate {{$user->name}}
+                                        </button>
+                                    @else
+                                        <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deactivate-user-{{$user->id}}">
+                                            <i class="fa-solid fa-user-slash"></i> Deactivate{{$user->name}}
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                             {{-- Include the modal here --}}
+                            @include('admin.users.modal.status')
                         @endif
                     </td>
                 </tr>
             @endforeach
         </tbody>
    </table>
+    <div class="d-flex justify-content-center">
+        {{$all_users->links()}}
+    </div>
 @endsection

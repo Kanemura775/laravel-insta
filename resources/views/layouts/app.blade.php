@@ -81,11 +81,14 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
                                     {{-- admin controls --}}
-                                    <a href="{{route('admin.users')}}" class="dropdown-item">
-                                        <i class="fa-solid fa-user-gear"></i> Admin
-                                    </a>
-                                    <hr class="dropdown-divider">
-                                    {{-- Profile --}}
+                                    @can('admin')
+                                        <a href="{{route('admin.users')}}" class="dropdown-item">
+                                            <i class="fa-solid fa-user-gear"></i> Admin
+                                        </a>
+                                        <hr class="dropdown-divider">
+                                    @endcan
+                                    
+                                        {{-- Profile --}}
                                     <a href="{{route('profile.show',Auth::user()->id)}}" class="dropdown-item">
                                         <i class="fa-solid fa-circle-user"></i> Profile
                                     </a>
@@ -122,7 +125,7 @@
                                 <a href="{{route('admin.posts')}}" class="list-group-item  {{request()->is('admin/posts') ? 'active' : '' }}">
                                     <i class="fa-solid fa-newspaper"></i> Posts
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="{{route('admin.categories')}}" class="list-group-item {{request()->is('admin/categories') ? 'active' : '' }}">
                                     <i class="fa-solid fa-tags"></i> Categories
                                 </a>
                             </div>

@@ -25,9 +25,11 @@
                         </a>
                     </td>
                     <td>
-                        @foreach($post->categoryPost as $category_post)
+                        @forelse($post->categoryPost as $category_post)
                             <span class="badge bg-secondary bg-opacity-50">{{$category_post->category->name}}</span>
-                        @endforeach
+                        @empty
+                            <span class="badge bg-dark">Uncategorized</span>
+                        @endforelse
                     </td>
                     <td>
                         <a href="{{route('profile.show',$post->user->id)}}" class="text-dark text-decoration-none">
@@ -36,7 +38,12 @@
                     </td>
                     <td>{{$post->created_at}}</td>
                     <td>
-                        <i class="fa-solid fa-circle text-primary"></i>&nbsp; Visible
+                        {{-- <i class="fa-solid fa-circle text-primary"></i>&nbsp; Visible --}}
+                        @if($post->trashed())
+                            <i class="fa-solid fa-circle-minus text-secondary"></i>&nbsp; Hidden
+                        @else
+                            <i class="fa-solid fa-circle text-primary"></i>&nbsp; Visible
+                        @endif
                     </td>
                     <td>
                         <div class="fropdown">
@@ -44,12 +51,22 @@
                                 <i class="fa-solid fa-ellipsis"></i>
                             </button>
                             <div class="dropdown-menu">
-                                <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#hide-post-{{$post->id}}">
+                                {{-- <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#hide-post-{{$post->id}}">
                                     <i class="fa-solid fa-eye-slash"></i> Hide Post {{$post->id}}
-                                </button>
+                                </button> --}}
+                                @if($post->trashed())
+                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#unhide-post-{{$post->id}}">
+                                        <i class="fa-solid fa-eye"></i> Unhide Post {{$post->id}}
+                                    </button>
+                                @else
+                                    <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#hide-post-{{$post->id}}">
+                                        <i class="fa-solid fa-eye-slash"></i> Hide Post {{$post->id}}
+                                    </button>
+                                @endif
                             </div>
                         </div>
                         {{-- Include modal here --}}
+                        @Include('admin.posts.modal.status')
                     </td>
                 </tr>
             @empty
@@ -61,4 +78,7 @@
             @endforelse
         </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+        {{$all_posts->links()}}
+    </div>
 @endsection

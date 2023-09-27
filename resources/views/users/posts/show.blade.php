@@ -105,11 +105,15 @@
                             </div>
                             {{-- category badges --}}
                             <div class="col text-end">
-                                @foreach($post->categoryPost as $category_post)
-                                <div class="badge bg-secondary bg-opacity-50">
-                                    {{$category_post->category->name}}
-                                </div>
-                                @endforeach
+                                @forelse($post->categoryPost as $category_post)
+                                    <div class="badge bg-secondary bg-opacity-50">
+                                        {{$category_post->category->name}}
+                                    </div>
+                                @empty
+                                    <div class="badge bg-dark">
+                                        Uncategorized
+                                    </div>
+                                @endforelse
                             </div>
                         </div>
                         {{-- owner + description --}}

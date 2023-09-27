@@ -15,6 +15,19 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
+     * Variable types:
+     * 1) Constant (const name) => the value placed in a contact is fixed or cannot be altered
+     *                          => it should be in all UPPERCASE
+     * 2) regular variable ($name) => the value is replaceable
+     */
+    const ADMIN_ROLE_ID = 1;
+    const USER_ROLE_ID = 2;
+    
+
+
+
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

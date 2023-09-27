@@ -8,6 +8,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PostsController;
+use App\Http\Controllers\Admin\CategoriesController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -110,7 +111,7 @@ Route::group(['middleware' => 'auth'], function () {
     //this route will delete follow
     Route::delete('/follow/{user_id}/destroy', [FollowController::class, 'destroy'])->name('follow.destroy');
 
-    Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
         //Users
         //URI : '/admin/users , ROUTE name: admin.users
         Route::get('/users', [UsersController::class, 'index'])->name('users');
@@ -119,6 +120,18 @@ Route::group(['middleware' => 'auth'], function () {
 
         //Posts
         Route::get('/posts', [PostsController::class, 'index'])->name('posts');
+        // this route will hide a post
+        Route::delete('/posts/{id}/hide', [PostsController::class, 'hide'])->name('posts.hide');
+        // this route will restore/unhide a post
+        Route::patch('/posts/{id}/unhide', [PostsController::class, 'unhide'])->name('posts.unhide');
 
+        //Categories
+        Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
+        //this route will create a new category
+        Route::post('/categories/store', [CategoriesController::class, 'store'])->name('categories.store');
+        //this route will update a category
+        Route::patch('/categories/{id}/update', [CategoriesController::class, 'update'])->name('categories.update');
+        //this route will update a category
+        Route::delete('/categories/{id}/destroy', [CategoriesController::class, 'destroy'])->name('categories.destroy');
     });
 });
